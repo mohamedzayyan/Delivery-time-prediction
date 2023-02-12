@@ -26,9 +26,9 @@ from sklearn.metrics import (
     mean_squared_error,
     r2_score
 )
-MLFLOW_TRACKING_URI='https://dagshub.com/mohamedzayyan/Delivery-time-prediction.mlflow' 
-MLFLOW_TRACKING_USERNAME='mohamedzayyan' 
-MLFLOW_TRACKING_PASSWORD='993b6e6575dafc00dc0781e647b9e8378a87c1be'
+import os
+os.environ['MLFLOW_TRACKING_USERNAME'] = 'mohamedzayyan'
+os.environ['MLFLOW_TRACKING_PASSWORD'] = '993b6e6575dafc00dc0781e647b9e8378a87c1be'
 
 mlflow.set_tracking_uri('https://dagshub.com/mohamedzayyan/Delivery-time-prediction.mlflow')
 def haversine(lon1, lat1, lon2, lat2):
