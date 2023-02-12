@@ -183,7 +183,7 @@ with mlflow.start_run():
 
     # Run fmin within an MLflow run context so that each hyperparameter configuration is logged as a child run of a parent
     # run called "xgboost_models" .
-    with mlflow.start_run(experiment_id=EXPERIMENT_ID, run_name='xgboost_models'):
+    with mlflow.start_run(experiment_id=EXPERIMENT_ID, run_name='xgboost_models', nested=True):
         xgboost_best_params = fmin(
             fn=train_model, 
             space=search_space, 
