@@ -3,7 +3,7 @@ stages:
     cmd: python training/src/process.py
     deps:
     - config/main.yaml
-    - data/raw
+    - data/
     - training/src/process.py
     outs:
     - data/processed:
