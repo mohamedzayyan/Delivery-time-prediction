@@ -48,8 +48,8 @@ def haversine(lon1, lat1, lon2, lat2):
     return c * r
 with mlflow.start_run():
     # code to train model 
-    trainData = pd.read_csv('./Data/train.csv')
-    testData = pd.read_csv('./Data/test.csv')
+    trainData = pd.read_csv('./data/train.csv')
+    testData = pd.read_csv('./data/test.csv')
 
     trainData['Weatherconditions'] = trainData['Weatherconditions'].map(lambda x: str(x)[11:])
     testData['Weatherconditions'] = testData['Weatherconditions'].map(lambda x: str(x)[11:])
