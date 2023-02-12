@@ -105,7 +105,7 @@ with mlflow.start_run():
     'eval_metric': 'rmse',
     'max_depth': scope.int(hp.quniform('max_depth', 2, 10, 1)),
     'n_estimators': scope.int(hp.quniform('n_estimators', 60, 200, 40)),
-    'learning_rate': hp.loguniform('learning_rate', -7, 0),
+    'learning_rate': hp.uniform('learning_rate', 1e5, 0.1),
     'min_child_weight': hp.loguniform('min_child_weight', -1, 7),
     'reg_alpha': hp.loguniform('reg_alpha', -10, 10),
     'reg_lambda': hp.loguniform('reg_lambda', -10, 10),
