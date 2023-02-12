@@ -26,6 +26,7 @@ from sklearn.metrics import (
     mean_squared_error,
     r2_score
 )
+from hyperopt.pyll.base import scope
 import os
 os.environ['MLFLOW_TRACKING_USERNAME'] = 'mohamedzayyan'
 os.environ['MLFLOW_TRACKING_PASSWORD'] = '993b6e6575dafc00dc0781e647b9e8378a87c1be'
@@ -100,9 +101,9 @@ with mlflow.start_run():
     'objective': 'reg:squarederror',
     'tree_method': 'gpu_hist',
     'eval_metric': 'r2',
-    'max_depth': [2,4,6,8],
-    'n_estimators': [60, 100, 140, 180],
-    'learning_rate': [0.1, 0.01, 0.05],
+    'max_depth': scope.int(hp.quniform('max_depth', 2, 10, 1)),
+    'n_estimators': scope.int(hp.quniform('max_depth', 60, 200, 40)),
+    'learning_rate': hp.loguniform('max_depth', -7, 0),
     'min_child_weight': hp.loguniform('min_child_weight', -1, 7),
     'reg_alpha': hp.loguniform('reg_alpha', -10, 10),
     'reg_lambda': hp.loguniform('reg_lambda', -10, 10),
