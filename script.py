@@ -102,7 +102,7 @@ with mlflow.start_run():
     search_space = {
     'objective': 'reg:squarederror',
     'tree_method': 'gpu_hist',
-    'eval_metric': 'r2',
+    'eval_metric': 'rmse',
     'max_depth': scope.int(hp.quniform('max_depth', 2, 10, 1)),
     'n_estimators': scope.int(hp.quniform('n_estimators', 60, 200, 40)),
     'learning_rate': hp.loguniform('learning_rate', -7, 0),
@@ -175,7 +175,7 @@ with mlflow.start_run():
             for name, metric in list(zip(metric_names, validation_metrics_values)):
                 mlflow.log_metric(f'validation_{name}', metric)
 
-            # Set the loss to -1*validation auc roc so fmin maximizes the it
+            # Set the loss to -1*validation r2 roc so fmin maximizes the it
             return {'status': STATUS_OK, 'loss': -1*validation_metrics['r2']}
     # Greater parallelism will lead to speedups, but a less optimal hyperparameter sweep.
     # A reasonable value for parallelism is the square root of max_evals.
