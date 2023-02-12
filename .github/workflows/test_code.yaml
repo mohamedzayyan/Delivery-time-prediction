@@ -4,7 +4,6 @@ on:
     paths:
       - config/**
       - training/**
-      - application/**
       - .github/workflows/test_training.yaml
 jobs:
   test_model:
