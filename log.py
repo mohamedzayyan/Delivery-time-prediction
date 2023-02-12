@@ -26,6 +26,9 @@ from sklearn.metrics import (
     mean_squared_error,
     r2
 )
+MLFLOW_TRACKING_URI='https://dagshub.com/mohamedzayyan/Delivery-time-prediction.mlflow' 
+MLFLOW_TRACKING_USERNAME='mohamedzayyan' 
+MLFLOW_TRACKING_PASSWORD='993b6e6575dafc00dc0781e647b9e8378a87c1be'
 
 mlflow.set_tracking_url('https://dagshub.com/mohamedzayyan/Delivery-time-prediction.mlflow')
 def haversine(lon1, lat1, lon2, lat2):
@@ -44,41 +47,40 @@ def haversine(lon1, lat1, lon2, lat2):
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles. Determines return value units.
     return c * r
 with mlflow.start_run():
-  
-  # code to train model 
-  trainData = pd.read_csv('./Data/train.csv')
-  testData = pd.read_csv('./Data/test.csv')
+    # code to train model 
+    trainData = pd.read_csv('./Data/train.csv')
+    testData = pd.read_csv('./Data/test.csv')
 
-  trainData['Weatherconditions'] = trainData['Weatherconditions'].map(lambda x: str(x)[11:])
-  testData['Weatherconditions'] = testData['Weatherconditions'].map(lambda x: str(x)[11:])
-  
-  trainData['Time_taken(min)'] = trainData['Time_taken(min)'].map(lambda x: str(x)[6:])
-  for i in trainData.columns:
-    trainData[i].loc[trainData[i] == 'NaN '] = np.nan
-    trainData[i].loc[trainData[i] == 'NaN'] = np.nan
+    trainData['Weatherconditions'] = trainData['Weatherconditions'].map(lambda x: str(x)[11:])
+    testData['Weatherconditions'] = testData['Weatherconditions'].map(lambda x: str(x)[11:])
 
-  for j in testData.columns:
-    testData[j].loc[testData[j] == 'NaN '] = np.nan
-    testData[j].loc[testData[j] == 'NaN'] = np.nan
-  
-  # delete missing values in Time_Orderd column
-  trainData.dropna(subset=['Time_Orderd'], axis=0, inplace=True)
-  testData.dropna(subset=['Time_Orderd'], axis=0, inplace=True)
+    trainData['Time_taken(min)'] = trainData['Time_taken(min)'].map(lambda x: str(x)[6:])
+    for i in trainData.columns:
+        trainData[i].loc[trainData[i] == 'NaN '] = np.nan
+        trainData[i].loc[trainData[i] == 'NaN'] = np.nan
 
-  # fill the missing values with their forward values
-  trainData = trainData.fillna(method='ffill')
-  testData = testData.fillna(method='ffill')
-  features = ['Delivery_person_Age', 'Delivery_person_Ratings', 'multiple_deliveries', 'Time_taken(min)']
-  features1 =  ['Delivery_person_Age', 'Delivery_person_Ratings', 'multiple_deliveries']
-  for i in features:
+    for j in testData.columns:
+        testData[j].loc[testData[j] == 'NaN '] = np.nan
+        testData[j].loc[testData[j] == 'NaN'] = np.nan
+  
+    # delete missing values in Time_Orderd column
+    trainData.dropna(subset=['Time_Orderd'], axis=0, inplace=True)
+    testData.dropna(subset=['Time_Orderd'], axis=0, inplace=True)
+
+    # fill the missing values with their forward values
+    trainData = trainData.fillna(method='ffill')
+    testData = testData.fillna(method='ffill')
+    features = ['Delivery_person_Age', 'Delivery_person_Ratings', 'multiple_deliveries', 'Time_taken(min)']
+    features1 =  ['Delivery_person_Age', 'Delivery_person_Ratings', 'multiple_deliveries']
+    for i in features:
         trainData[i] = trainData[i].astype(str).astype(float)
         for j in features1:
             testData[j] = testData[j].astype(str).astype(float)
     trainData['Distance(km)'] = trainData.apply(lambda x: haversine(x['Restaurant_latitude'], x['Restaurant_longitude'],
-                                   x['Delivery_location_latitude'], x['Delivery_location_longitude']), axis=1)
+                                    x['Delivery_location_latitude'], x['Delivery_location_longitude']), axis=1)
 
     testData['Distance(km)'] = testData.apply(lambda x: haversine(x['Restaurant_latitude'], x['Restaurant_longitude'],
-                                   x['Delivery_location_latitude'], x['Delivery_location_longitude']), axis=1)
+                                    x['Delivery_location_latitude'], x['Delivery_location_longitude']), axis=1)
     new_train_data = trainData[['Delivery_person_Age', 'Delivery_person_Ratings', 'Distance(km)', 'Type_of_order',
                     'Type_of_vehicle', 'Time_taken(min)']]
     int_cols = new_train_data.select_dtypes('int')
@@ -100,16 +102,16 @@ with mlflow.start_run():
     'eval_metric': 'r2',
     'max_depth': range (2, 10, 1),
     'n_estimators': range(60, 220, 40),
-    'learning_rate': [0.1, 0.01, 0.05]
+    'learning_rate': [0.1, 0.01, 0.05],
     'min_child_weight': hp.loguniform('min_child_weight', -1, 7),
     'reg_alpha': hp.loguniform('reg_alpha', -10, 10),
     'reg_lambda': hp.loguniform('reg_lambda', -10, 10),
     'gamma': hp.loguniform('gamma', -10, 10),
     'use_label_encoder': False,
     'verbosity': 0,
-    'random_state': RANDOM_SEED
+    'random_state': 42
     }
-    
+
     try:
         EXPERIMENT_ID = mlflow.create_experiment('xgboost-hyperopt')
     except:
