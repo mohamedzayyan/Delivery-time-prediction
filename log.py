@@ -24,7 +24,7 @@ from hyperopt import (
 )
 from sklearn.metrics import (
     mean_squared_error,
-    r2
+    r2_score
 )
 MLFLOW_TRACKING_URI='https://dagshub.com/mohamedzayyan/Delivery-time-prediction.mlflow' 
 MLFLOW_TRACKING_USERNAME='mohamedzayyan' 
@@ -144,7 +144,7 @@ with mlflow.start_run():
             metric_names = ['mse', 'r2']
             # Training evaluation metrics
             train_mse = mean_squared_error(y_train, y_train_pred).round(3)
-            train_r2 = r2(y_train, y_train_pred).round(3)
+            train_r2 = r2_score(y_train, y_train_pred).round(3)
             training_metrics = {
                 'mse': train_mse, 
                 'r2': train_r2, 
@@ -153,7 +153,7 @@ with mlflow.start_run():
 
             # Validation evaluation metrics
             val_mse = mean_squared_error(y_val, y_val_pred).round(3)
-            val_r2 = r2(y_val, y_val_pred).round(3)
+            val_r2 = r2_score(y_val, y_val_pred).round(3)
             validation_metrics = {
                 'mse': val_mse, 
                 'r2': val_r2, 
