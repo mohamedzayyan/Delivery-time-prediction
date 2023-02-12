@@ -22,6 +22,6 @@ min_child_weight:
 n_estimators: 180
 seed: 0
 use_label_encoder: False
-objective: "reg:mse"
+objective: "reg:squarederror"
 eval_metric: rmse
 early_stopping_rounds: 10

@@ -11,6 +11,9 @@ from hydra.utils import to_absolute_path as abspath
 from omegaconf import DictConfig
 from sklearn.metrics import mean_squared_error, r2_score
 from xgboost import XGBRegressor
+import os
+os.environ['MLFLOW_TRACKING_USERNAME'] = 'mohamedzayyan'
+os.environ['MLFLOW_TRACKING_PASSWORD'] = '993b6e6575dafc00dc0781e647b9e8378a87c1be'
 
 logger = BaseLogger()
 

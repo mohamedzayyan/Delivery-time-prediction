@@ -1,0 +1,22 @@
+[2023-02-12 19:33:26,683][hyperopt.tpe][INFO] - build_posterior_wrapper took 0.000000 seconds
+[2023-02-12 19:33:26,683][hyperopt.tpe][INFO] - TPE using 0 trials
+[2023-02-12 19:33:26,699][hyperopt.fmin][ERROR] - job exception: [19:33:26] C:\Users\Administrator\workspace\xgboost-win64_release_1.6.0\src\objective\objective.cc:26: Unknown objective function: `reg:mse`
+Objective candidate: survival:aft
+Objective candidate: binary:hinge
+Objective candidate: multi:softmax
+Objective candidate: multi:softprob
+Objective candidate: rank:pairwise
+Objective candidate: rank:ndcg
+Objective candidate: rank:map
+Objective candidate: survival:cox
+Objective candidate: reg:gamma
+Objective candidate: reg:squarederror
+Objective candidate: reg:squaredlogerror
+Objective candidate: reg:logistic
+Objective candidate: binary:logistic
+Objective candidate: binary:logitraw
+Objective candidate: reg:tweedie
+Objective candidate: reg:linear
+Objective candidate: reg:pseudohubererror
+Objective candidate: count:poisson
+
