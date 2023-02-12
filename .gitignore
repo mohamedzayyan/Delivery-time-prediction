@@ -3,6 +3,5 @@
 *.jpg
 *.csv
 *.pdf
-*.txt
 *.tsv
 /data
