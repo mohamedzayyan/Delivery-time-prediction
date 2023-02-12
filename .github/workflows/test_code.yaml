@@ -36,6 +36,5 @@ jobs:
           dvc remote modify origin --local user ${{ secrets.DAGSHUB_USERNAME }}
           dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
           dvc pull -r origin train_model
-
       - name: Test processed code and ML model
         run: pytest training/tests
