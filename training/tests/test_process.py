@@ -18,17 +18,17 @@ def get_features_step(steps_data):
         {
             "Delivery_person_Age": [26, 29,25, 35],
             "Delivery_person_Ratings": [3.5, 4.0,4.5, 3.2],
-            "Distance(km)": [11, 15, 10, 7],
+            "Distance": [11, 15, 10, 7],
             "Type_of_order": ["Buffet", "Drinks","Meal", "Snack"],
             "Type_of_vehicle": ["electric_scooter", "motorcycle", "motorcyle", "scooter"],
-            "Time_taken(min)": [15, 25, 20, 18],
+            "Time_taken": [15, 25, 20, 18],
         }
     )
 
     features = [
         "Delivery_person_Age",
         "Delivery_person_Ratings",
-        "Distance(km)",
+        "Distance",
         'Type_of_order_Buffet ', 
         'Type_of_order_Drinks ',
        'Type_of_order_Meal ', 
@@ -37,7 +37,7 @@ def get_features_step(steps_data):
        'Type_of_vehicle_motorcycle ',
        'Type_of_vehicle_scooter '
     ]
-    target = "Time_taken(min)"
+    target = "Time_taken"
     y, X = get_features(target, features, data)
 
 
@@ -45,7 +45,7 @@ def get_features_step(steps_data):
         {
             "Delivery_person_Age": Column(float, Check.isin([0.0, 100.0])),
             "Delivery_person_Ratings": Column(float, Check.isin([0.0, 5.0])),
-            "Distance(km)": Column(float, Check.isin([1.0, 2000.0])),
+            "Distance": Column(float, Check.isin([1.0, 2000.0])),
             "Type_of_order_Buffet ": Column(float, Check.isin([0.0, 1.0])),
             "Type_of_order_Drinks ": Column(float, Check.isin([0.0, 1.0])),
             "Type_of_order_Meal ": Column(float, Check.isin([0.0, 1.0])),
@@ -64,7 +64,7 @@ def rename_columns_step(steps_data):
     assert list(processed_X.columns) == [
         "Delivery_person_Age",
         "Delivery_person_Ratings",
-        "Distance(km)",
+        "Distance",
         "Type_of_order_Buffet",
         "Type_of_order_Drinks",
         "Type_of_order_Snack",

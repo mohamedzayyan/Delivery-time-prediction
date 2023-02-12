@@ -19,8 +19,8 @@ def test_xgboost():
     train_df = pd.concat([X_train, y_train], axis=1)
     test_df = pd.concat([X_test, y_test], axis=1)
 
-    train_ds = Dataset(train_df, label="Time_taken(min)")
-    validation_ds = Dataset(test_df, label="Time_taken(min)")
+    train_ds = Dataset(train_df, label="Time_taken")
+    validation_ds = Dataset(test_df, label="Time_taken")
 
     check = ModelErrorAnalysis(min_error_model_score=0.3)
     check.run(train_ds, validation_ds, model)

@@ -61,11 +61,11 @@ def process_data(config: DictConfig):
     features = ['Delivery_person_Age', 'Delivery_person_Ratings', 'multiple_deliveries', 'Time_taken(min)']
     for i in features:
         data[i] = data[i].astype(str).astype(float)
-    data['Distance(km)'] = data.apply(lambda x: haversine(x['Restaurant_latitude'], x['Restaurant_longitude'],
+    data['Distance'] = data.apply(lambda x: haversine(x['Restaurant_latitude'], x['Restaurant_longitude'],
                                     x['Delivery_location_latitude'], x['Delivery_location_longitude']), axis=1)
 
 
-    data = data[['Delivery_person_Age', 'Delivery_person_Ratings', 'Distance(km)', 'Type_of_order',
+    data = data[['Delivery_person_Age', 'Delivery_person_Ratings', 'Distance', 'Type_of_order',
                     'Type_of_vehicle', 'Time_taken(min)']]
     int_cols = data.select_dtypes('int')
     float_cols = data.select_dtypes('float')
@@ -75,10 +75,10 @@ def process_data(config: DictConfig):
     scaler = StandardScaler()
     scaler = scaler.fit(data[target_col].values.reshape((-1,1)))
     data[target_col] = scaler.transform(data[target_col].values.reshape((-1,1)))
-
+    data.rename(columns = {'Time_taken(min)':'Time_taken'}, inplace = True)
+    data = rename_columns(data)
     y, X = get_features(config.process.target, config.process.features, data)
 
-    X = rename_columns(X)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )

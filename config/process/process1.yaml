@@ -1,7 +1,12 @@
-target: Time_taken(min)
+target: Time_taken
 features:
   - Delivery_person_Age
   - Delivery_person_Ratings
-  - Distance(km)
-  - Type_of_order
-  - Type_of_vehicle
+  - Distance
+  - Type_of_order_Buffet  
+  - Type_of_order_Drinks
+  - Type_of_order_Meal 
+  - Type_of_order_Snack
+  - Type_of_vehicle_electric_scooter 
+  - Type_of_vehicle_motorcycle
+  - Type_of_vehicle_scooter
