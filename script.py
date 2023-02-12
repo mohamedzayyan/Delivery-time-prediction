@@ -102,6 +102,7 @@ with mlflow.start_run():
     search_space = {
     'objective': 'reg:squarederror',
     'tree_method': 'gpu_hist',
+    'gpu_id': 0,
     'eval_metric': 'rmse',
     'max_depth': scope.int(hp.quniform('max_depth', 2, 10, 1)),
     'n_estimators': scope.int(hp.quniform('n_estimators', 60, 200, 40)),
@@ -192,5 +193,5 @@ with mlflow.start_run():
             space=search_space, 
             algo=tpe.suggest,
             trials=trials,
-            max_evals=50
+            max_evals=20
         )
